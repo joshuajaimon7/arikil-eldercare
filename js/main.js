@@ -33,13 +33,6 @@ function initScrollProgress() {
     if (progressBar) {
       progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
     }
-
-    // Parallax depth scaling on hero background
-    if (heroCanvas && scrollY < window.innerHeight * 1.2) {
-      const scaleVal = 1.02 + (scrollY * 0.00035);
-      const translateVal = scrollY * 0.28;
-      heroCanvas.style.transform = `scale(${scaleVal}) translateY(${translateVal}px)`;
-    }
   }, { passive: true });
 }
 
