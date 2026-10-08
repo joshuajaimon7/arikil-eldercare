@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle2, Shield, PhoneCall } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -11,49 +11,44 @@ interface ConsultationModalProps {
 
 export default function ConsultationModal({ isOpen, onClose }: ConsultationModalProps) {
   const [formData, setFormData] = useState({
-    userName: '',
+    clientName: '',
+    phone: '',
     parentName: '',
-    district: 'Palakkad',
-    userContact: '',
+    locationDistrict: 'Palakkad',
+    currentLocation: '',
     notes: '',
   });
+
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Build direct WhatsApp message
-    const message = encodeURIComponent(
-      `Hello Arikil Team,\n\nI would like to inquire about companionship visits for my parents.\n\n` +
-      `My Name: ${formData.userName}\n` +
-      `Parents: ${formData.parentName}\n` +
-      `District: ${formData.district}\n` +
-      `Contact: ${formData.userContact}\n` +
+    const whatsappText = encodeURIComponent(
+      `Hello Arikil Care Desk,\n\nI would like to inquire about elder companionship.\n\n` +
+      `My Name: ${formData.clientName}\n` +
+      `Parents' Name: ${formData.parentName}\n` +
+      `District Hub: ${formData.locationDistrict}\n` +
+      `Where I Live: ${formData.currentLocation || 'Not specified'}\n` +
+      `My Phone: ${formData.phone}\n` +
       `Notes: ${formData.notes || 'None'}\n\n` +
       `Thank you.`
     );
-    window.open(`https://wa.me/919565533735?text=${message}`, '_blank');
+    window.open(`https://wa.me/919565533735?text=${whatsappText}`, '_blank');
     setSubmitted(true);
-  };
-
-  const handleReset = () => {
-    setSubmitted(false);
-    onClose();
   };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <div
-          role="dialog"
-          aria-modal="true"
           style={{
             position: 'fixed',
             inset: 0,
-            zIndex: 1000,
+            zIndex: 9999,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '20px',
+            padding: '24px',
           }}
         >
           {/* Backdrop */}
@@ -65,29 +60,30 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
             style={{
               position: 'absolute',
               inset: 0,
-              backgroundColor: 'rgba(22, 29, 21, 0.75)',
-              backdropFilter: 'blur(6px)',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
             }}
           />
 
           {/* Modal Card */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.94, y: 16 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{
               position: 'relative',
-              backgroundColor: '#FAF8F5',
-              borderRadius: '20px',
-              padding: '36px',
-              maxWidth: '520px',
+              backgroundColor: '#131814',
+              borderRadius: '8px',
+              padding: '40px',
+              maxWidth: '540px',
               width: '100%',
-              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.35)',
-              border: '1px solid rgba(197, 154, 88, 0.3)',
+              boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
               maxHeight: '90vh',
               overflowY: 'auto',
-              color: '#1C241B',
+              color: '#FFFFFF',
             }}
           >
             {/* Close Button */}
@@ -96,153 +92,171 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
               aria-label="Close dialog"
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
-                background: 'rgba(0, 0, 0, 0.05)',
+                top: '24px',
+                right: '24px',
+                background: 'transparent',
                 border: 'none',
-                borderRadius: '50%',
-                width: '36px',
-                height: '36px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                color: 'rgba(255, 255, 255, 0.6)',
                 cursor: 'pointer',
-                color: '#4A5647',
+                fontSize: '1.25rem',
               }}
             >
-              <X size={20} />
+              <X size={22} />
             </button>
 
             {!submitted ? (
               <>
-                <div style={{ marginBottom: '24px' }}>
+                <div style={{ marginBottom: '28px' }}>
                   <span
                     style={{
-                      display: 'inline-block',
-                      fontFamily: 'var(--font-heading)',
-                      fontSize: '0.8125rem',
-                      letterSpacing: '0.12em',
+                      display: 'block',
+                      fontSize: '0.78125rem',
+                      letterSpacing: '0.14em',
                       textTransform: 'uppercase',
-                      color: '#C59A58',
-                      fontWeight: 600,
-                      marginBottom: '6px',
+                      color: 'var(--text-dim)',
+                      marginBottom: '8px',
                     }}
                   >
-                    Direct Consultation
+                    Direct Care Consultation
                   </span>
                   <h3
                     style={{
-                      fontFamily: 'var(--font-heading)',
+                      fontFamily: 'var(--font-sans)',
                       fontSize: '1.75rem',
-                      color: '#1E281D',
+                      fontWeight: 300,
+                      color: '#FFFFFF',
                       margin: 0,
                       lineHeight: 1.25,
+                      letterSpacing: '-0.02em',
                     }}
                   >
-                    Arrange a Gentle Conversation
+                    Arrange a Home Introduction
                   </h3>
                   <p
                     style={{
-                      color: '#4A5647',
+                      color: 'var(--text-muted)',
                       fontSize: '0.9375rem',
-                      marginTop: '8px',
+                      marginTop: '10px',
                       lineHeight: 1.6,
                     }}
                   >
-                    Share your family details below. Niveda or the Arikil care coordinator will connect with you via WhatsApp or phone.
+                    Share your family details below. Founder Niveda Babu will connect with you directly via WhatsApp to coordinate visits.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
+                    <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
                       Your Full Name
                     </label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. Rahul Nair"
-                      value={formData.userName}
-                      onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                      value={formData.clientName}
+                      onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
                       style={{
                         width: '100%',
-                        padding: '12px 16px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(0, 0, 0, 0.15)',
-                        backgroundColor: '#FFFFFF',
-                        fontSize: '1rem',
-                        color: '#1C241B',
+                        padding: '12px 14px',
+                        backgroundColor: '#0D110E',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: '4px',
+                        color: '#FFFFFF',
+                        fontSize: '0.9375rem',
                         outline: 'none',
                       }}
                     />
                   </div>
 
-                  <div>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                      Parents&apos; Name(s) in Kerala
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Achan &amp; Amma (K. Vasudevan)"
-                      value={formData.parentName}
-                      onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
-                      style={{
-                        width: '100%',
-                        padding: '12px 16px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(0, 0, 0, 0.15)',
-                        backgroundColor: '#FFFFFF',
-                        fontSize: '1rem',
-                        color: '#1C241B',
-                        outline: 'none',
-                      }}
-                    />
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                        District Hub
+                      <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                        Parents&apos; Name
                       </label>
-                      <select
-                        value={formData.district}
-                        onChange={(e) => setFormData({ ...formData, district: e.target.value })}
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Achan &amp; Amma"
+                        value={formData.parentName}
+                        onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
                         style={{
                           width: '100%',
                           padding: '12px 14px',
-                          borderRadius: '10px',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
-                          backgroundColor: '#FFFFFF',
+                          backgroundColor: '#0D110E',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          borderRadius: '4px',
+                          color: '#FFFFFF',
                           fontSize: '0.9375rem',
-                          color: '#1C241B',
+                          outline: 'none',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                        District Hub
+                      </label>
+                      <select
+                        value={formData.locationDistrict}
+                        onChange={(e) => setFormData({ ...formData, locationDistrict: e.target.value })}
+                        style={{
+                          width: '100%',
+                          padding: '12px 14px',
+                          backgroundColor: '#0D110E',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          borderRadius: '4px',
+                          color: '#FFFFFF',
+                          fontSize: '0.9375rem',
                           outline: 'none',
                         }}
                       >
                         <option value="Palakkad">Palakkad District</option>
                         <option value="Thrissur">Thrissur District</option>
-                        <option value="Other Kerala Region">Other Kerala Region</option>
                       </select>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                        Where You Live
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Dubai, London, Dallas"
+                        value={formData.currentLocation}
+                        onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
+                        style={{
+                          width: '100%',
+                          padding: '12px 14px',
+                          backgroundColor: '#0D110E',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          borderRadius: '4px',
+                          color: '#FFFFFF',
+                          fontSize: '0.9375rem',
+                          outline: 'none',
+                        }}
+                      />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                        Your Phone / WhatsApp
+                      <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                        Your WhatsApp Phone
                       </label>
                       <input
                         type="tel"
                         required
-                        placeholder="+971 / +44 / +91..."
-                        value={formData.userContact}
-                        onChange={(e) => setFormData({ ...formData, userContact: e.target.value })}
+                        placeholder="+971 50... or +91 98..."
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         style={{
                           width: '100%',
                           padding: '12px 14px',
-                          borderRadius: '10px',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
-                          backgroundColor: '#FFFFFF',
+                          backgroundColor: '#0D110E',
+                          border: '1px solid rgba(255, 255, 255, 0.15)',
+                          borderRadius: '4px',
+                          color: '#FFFFFF',
                           fontSize: '0.9375rem',
-                          color: '#1C241B',
                           outline: 'none',
                         }}
                       />
@@ -250,100 +264,57 @@ export default function ConsultationModal({ isOpen, onClose }: ConsultationModal
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                      Companionship Wishes or Notes (Optional)
+                    <label style={{ display: 'block', fontSize: '0.8125rem', color: 'var(--text-muted)', marginBottom: '6px' }}>
+                      Notes or Preferences
                     </label>
                     <textarea
-                      rows={3}
-                      placeholder="e.g. Morning tea conversations, quiet courtyard walks, or daily WhatsApp photo updates..."
+                      rows={2}
+                      placeholder="e.g. Morning tea, reading newspapers, walking in courtyard..."
                       value={formData.notes}
                       onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                       style={{
                         width: '100%',
-                        padding: '12px 16px',
-                        borderRadius: '10px',
-                        border: '1px solid rgba(0, 0, 0, 0.15)',
-                        backgroundColor: '#FFFFFF',
+                        padding: '12px 14px',
+                        backgroundColor: '#0D110E',
+                        border: '1px solid rgba(255, 255, 255, 0.15)',
+                        borderRadius: '4px',
+                        color: '#FFFFFF',
                         fontSize: '0.9375rem',
-                        color: '#1C241B',
                         outline: 'none',
                         resize: 'none',
                       }}
                     />
                   </div>
 
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      fontSize: '0.8125rem',
-                      color: '#4A5647',
-                    }}
-                  >
-                    <Shield size={16} color="#C59A58" />
-                    <span>Strict family privacy. Direct founder-coordinated communication.</span>
-                  </div>
-
                   <button
                     type="submit"
-                    className="btn btn-primary"
-                    style={{
-                      width: '100%',
-                      padding: '14px',
-                      fontSize: '1rem',
-                      justifyContent: 'center',
-                      marginTop: '6px',
-                    }}
+                    className="btn-harvest-solid"
+                    style={{ width: '100%', justifyContent: 'center', marginTop: '8px' }}
                   >
-                    <Send size={18} />
-                    <span>Proceed via WhatsApp (+91 95655 33735)</span>
+                    <span>Connect on WhatsApp</span>
+                    <span>&rarr;</span>
                   </button>
                 </form>
               </>
             ) : (
-              <div style={{ textAlign: 'center', padding: '24px 8px' }}>
-                <div
-                  style={{
-                    width: '64px',
-                    height: '64px',
-                    borderRadius: '50%',
-                    backgroundColor: 'rgba(37, 211, 102, 0.15)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#25D366',
-                    margin: '0 auto 20px auto',
-                  }}
-                >
-                  <CheckCircle2 size={36} />
+              <div style={{ textAlign: 'center', padding: '24px 0' }}>
+                <div style={{ color: '#FFFFFF', display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+                  <CheckCircle2 size={42} strokeWidth={1.5} />
                 </div>
-                <h3
-                  style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '1.75rem',
-                    color: '#1E281D',
-                    marginBottom: '10px',
-                  }}
-                >
-                  Message Prepared
-                </h3>
-                <p
-                  style={{
-                    color: '#4A5647',
-                    fontSize: '1rem',
-                    lineHeight: 1.65,
-                    marginBottom: '24px',
-                  }}
-                >
-                  Your details have been formatted and directed to our official WhatsApp channel (+91 95655 33735). We look forward to speaking with you.
+                <h4 style={{ fontSize: '1.4rem', fontWeight: 300, marginBottom: '8px' }}>
+                  Request Received
+                </h4>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
+                  WhatsApp has opened with your inquiry. Niveda will respond shortly to arrange your parents&apos; introduction.
                 </p>
                 <button
-                  onClick={handleReset}
-                  className="btn btn-outline"
-                  style={{ width: '100%', justifyContent: 'center' }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    onClose();
+                  }}
+                  className="btn-harvest-outline"
                 >
-                  Close Window
+                  Close
                 </button>
               </div>
             )}

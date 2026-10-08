@@ -3,233 +3,110 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { MapPin, Globe, Clock, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 import ConsultationModal from '@/components/ConsultationModal';
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
-};
 
 export default function LocationsPage() {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
-      {/* Header */}
-      <section 
-        style={{
-          paddingTop: '64px',
-          paddingBottom: '64px',
-          backgroundColor: '#FAF8F5',
-          borderBottom: '1px solid rgba(52, 68, 47, 0.08)',
-          textAlign: 'center',
-        }}
-      >
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-            <span className="section-eyebrow">Service Coverage</span>
-            <h1 
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.4rem, 4vw, 3.4rem)',
-                fontWeight: 600,
-                color: '#1E281D',
-                lineHeight: 1.2,
-                marginBottom: '16px',
-              }}
-            >
-              Palakkad &amp; Thrissur <em>District Hubs</em>
+      {/* Header Statement */}
+      <section style={{ paddingTop: '160px', paddingBottom: '90px', backgroundColor: 'var(--bg-base)', borderBottom: '1px solid var(--border)' }}>
+        <div className="container-wide">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.8 }}
+            style={{ maxWidth: '880px' }}
+          >
+            <span style={{ fontSize: '0.8125rem', color: 'var(--gold)', letterSpacing: '0.16em', textTransform: 'uppercase', display: 'block', marginBottom: '20px' }}>
+              Service Coverage &bull; Central Kerala
+            </span>
+            <h1 style={{ fontSize: 'clamp(2.6rem, 5vw, 4.4rem)', fontWeight: 300, lineHeight: 1.15, color: 'var(--text-primary)', letterSpacing: '-0.025em', marginBottom: '28px' }}>
+              Palakkad &amp; Thrissur District Hubs
             </h1>
-            <p 
-              style={{
-                fontSize: '1.125rem',
-                color: '#4A5647',
-                lineHeight: 1.8,
-              }}
-            >
-              Centrally based in central Kerala to ensure swift, dependable, and personalized companionship visits across residential communities.
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: 1.8 }}>
+              Centrally based in Kerala to ensure swift, dependable, and personalized companionship visits across residential communities and heritage homes.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* District Cards */}
-      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container">
-          <div 
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '36px',
-              marginBottom: '64px',
-            }}
-          >
+      {/* Hubs Columns */}
+      <section style={{ padding: '120px 0', backgroundColor: 'var(--bg-surface)' }}>
+        <div className="container-wide">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '48px', marginBottom: '96px' }}>
+            
             {/* Palakkad Hub */}
-            <div 
-              style={{
-                padding: '36px',
-                borderRadius: '20px',
-                backgroundColor: '#FAF8F5',
-                border: '1px solid rgba(52, 68, 47, 0.1)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div 
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '6px 14px',
-                  borderRadius: '999px',
-                  backgroundColor: 'rgba(197, 154, 88, 0.2)',
-                  color: '#8A5F45',
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  marginBottom: '20px',
-                }}
-              >
-                <MapPin size={15} color="#C59A58" />
-                <span>Founding Hub</span>
-              </div>
-
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: '#1E281D', marginBottom: '12px' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '32px' }}>
+              <span style={{ fontSize: '0.78125rem', color: 'var(--gold)', letterSpacing: '0.16em', textTransform: 'uppercase', display: 'block', marginBottom: '14px' }}>
+                Founding Hub
+              </span>
+              <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.4rem)', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.01em' }}>
                 Palakkad District
               </h2>
-              <p style={{ color: '#4A5647', fontSize: '1rem', lineHeight: 1.75, marginBottom: '24px' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '1.0625rem', lineHeight: 1.8, marginBottom: '24px' }}>
                 Our roots are deeply anchored in Palakkad. We provide reliable companionship visits across town neighborhoods and surrounding residential pockets.
               </p>
-
-              <div style={{ borderTop: '1px solid rgba(52, 68, 47, 0.08)', paddingTop: '20px' }}>
-                <h4 style={{ fontSize: '0.9375rem', color: '#1E281D', marginBottom: '12px', fontWeight: 600 }}>
-                  Primary Coverage Areas:
-                </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: '#4A5647', fontSize: '0.9375rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Palakkad Town &amp; Fort Area</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Kalpathy &amp; Olavakode</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Chittur &amp; Kuzhalmannam</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Ottapalam &amp; Shoranur Environs</span>
-                  </div>
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'rgba(240, 237, 230, 0.85)', fontSize: '0.9375rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Palakkad Town Center &amp; Fort Area</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Kalpathy Heritage Village &amp; Olavakode</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Chittur &amp; Kuzhalmannam</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Ottapalam &amp; Shoranur Environs</div>
               </div>
             </div>
 
             {/* Thrissur Hub */}
-            <div 
-              style={{
-                padding: '36px',
-                borderRadius: '20px',
-                backgroundColor: '#FAF8F5',
-                border: '1px solid rgba(52, 68, 47, 0.1)',
-                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.04)',
-              }}
-            >
-              <div 
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '6px 14px',
-                  borderRadius: '999px',
-                  backgroundColor: 'rgba(52, 68, 47, 0.1)',
-                  color: '#34442F',
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  marginBottom: '20px',
-                }}
-              >
-                <MapPin size={15} color="#34442F" />
-                <span>Central Kerala Hub</span>
-              </div>
-
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2rem', color: '#1E281D', marginBottom: '12px' }}>
+            <div style={{ borderTop: '1px solid var(--border)', paddingTop: '32px' }}>
+              <span style={{ fontSize: '0.78125rem', color: 'var(--gold)', letterSpacing: '0.16em', textTransform: 'uppercase', display: 'block', marginBottom: '14px' }}>
+                Central Kerala Hub
+              </span>
+              <h2 style={{ fontSize: 'clamp(2rem, 3vw, 2.4rem)', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '16px', letterSpacing: '-0.01em' }}>
                 Thrissur District
               </h2>
-              <p style={{ color: '#4A5647', fontSize: '1rem', lineHeight: 1.75, marginBottom: '24px' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '1.0625rem', lineHeight: 1.8, marginBottom: '24px' }}>
                 Serving the cultural capital of Kerala, providing trusted companions who understand the lifestyle, tradition, and gentle pace of Thrissur families.
               </p>
-
-              <div style={{ borderTop: '1px solid rgba(52, 68, 47, 0.08)', paddingTop: '20px' }}>
-                <h4 style={{ fontSize: '0.9375rem', color: '#1E281D', marginBottom: '12px', fontWeight: 600 }}>
-                  Primary Coverage Areas:
-                </h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', color: '#4A5647', fontSize: '0.9375rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Thrissur Swaraj Round Environs</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Ayyanthole &amp; Civil Station Area</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Ollur &amp; Kuriachira</span>
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <CheckCircle2 size={16} color="#C59A58" />
-                    <span>Mannuthy &amp; Adat Residential Belts</span>
-                  </div>
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', color: 'rgba(240, 237, 230, 0.85)', fontSize: '0.9375rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Thrissur Swaraj Round Environs</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Ayyanthole &amp; Civil Station Area</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Ollur &amp; Kuriachira Residential Belts</div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><span style={{ color: 'var(--gold)' }}>&bull;</span> Mannuthy &amp; Adat Suburbs</div>
               </div>
             </div>
+
           </div>
 
-          {/* Global NRI Bridge Banner */}
-          <div 
-            style={{
-              padding: '48px',
-              borderRadius: '24px',
-              backgroundColor: '#1E281D',
-              color: '#FAF8F5',
-            }}
-          >
-            <div style={{ maxWidth: '780px', margin: '0 auto', textAlign: 'center' }}>
-              <div 
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  color: '#C59A58',
-                  fontSize: '0.8125rem',
-                  fontWeight: 600,
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  marginBottom: '12px',
-                }}
+          {/* NRI Global Bridge Box */}
+          <div style={{ border: '1px solid var(--border)', padding: '56px 40px', backgroundColor: 'var(--bg-raised)', borderRadius: '6px', textAlign: 'center', maxWidth: '960px', margin: '0 auto' }}>
+            <span style={{ fontSize: '0.78125rem', color: 'var(--gold)', letterSpacing: '0.18em', textTransform: 'uppercase', display: 'block', marginBottom: '14px' }}>
+              The Global NRI Bridge
+            </span>
+            <h3 style={{ fontSize: 'clamp(2rem, 3.4vw, 2.6rem)', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '20px' }}>
+              Connecting Families Across Continents
+            </h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', maxWidth: '720px', margin: '0 auto 36px auto', lineHeight: 1.8 }}>
+              Whether you live in Dubai, London, Singapore, Dallas, or Doha, our team coordinates visits that synchronize seamlessly with your family&apos;s peace of mind.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
+              <a 
+                href="https://wa.me/919565533735" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn-harvest-solid"
               >
-                <Globe size={16} />
-                <span>NRI Family Bridge</span>
-              </div>
-              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', marginBottom: '16px', color: '#FAF8F5' }}>
-                Connecting Across Time Zones
-              </h3>
-              <p style={{ color: '#B6C2B3', fontSize: '1.0625rem', lineHeight: 1.8, marginBottom: '32px' }}>
-                Whether you are checking in from the UAE (+0.5h difference), the UK (-5.5h difference), or the United States, our care coordination team synchronizes visits to suit your family&apos;s peace of mind.
-              </p>
-
+                <span>WhatsApp Care Desk</span>
+                <span>&rarr;</span>
+              </a>
               <button 
                 onClick={() => setModalOpen(true)}
-                className="btn-primary"
-                style={{ padding: '16px 32px', fontSize: '1rem' }}
+                className="btn-harvest-outline"
               >
-                <MessageCircle size={18} />
-                <span>Coordinate a Visit for Your Parents</span>
+                <span>Arrange Consultation</span>
               </button>
             </div>
           </div>
+
         </div>
       </section>
 

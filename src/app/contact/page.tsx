@@ -2,12 +2,12 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Phone, Mail, MapPin, Send, MessageCircle, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Mail, MessageCircle, ShieldCheck, CheckCircle2, ArrowRight } from 'lucide-react';
 
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+  transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
 };
 
 export default function ContactPage() {
@@ -16,6 +16,7 @@ export default function ContactPage() {
     phone: '',
     parentName: '',
     district: 'Palakkad',
+    currentLocation: '',
     message: '',
   });
   const [submitted, setSubmitted] = useState(false);
@@ -23,11 +24,12 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const text = encodeURIComponent(
-      `Hello Arikil Team,\n\nI would like to inquire about elder companionship.\n\n` +
+      `Hello Arikil Care Desk,\n\nI would like to inquire about elder companionship.\n\n` +
       `My Name: ${formData.name}\n` +
       `Parents' Name: ${formData.parentName}\n` +
-      `District: ${formData.district}\n` +
-      `Phone: ${formData.phone}\n` +
+      `District Hub: ${formData.district}\n` +
+      `Where I Live: ${formData.currentLocation || 'Not specified'}\n` +
+      `Contact Phone: ${formData.phone}\n` +
       `Notes: ${formData.message || 'None'}\n\n` +
       `Thank you.`
     );
@@ -37,371 +39,270 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Header */}
+      {/* EDITORIAL HERO SECTION */}
       <section 
         style={{
-          paddingTop: '64px',
-          paddingBottom: '64px',
-          backgroundColor: '#FAF8F5',
-          borderBottom: '1px solid rgba(52, 68, 47, 0.08)',
-          textAlign: 'center',
+          paddingTop: '160px',
+          paddingBottom: '90px',
+          backgroundColor: 'var(--bg-base)',
+          borderBottom: '1px solid var(--border)',
         }}
       >
-        <div className="container" style={{ maxWidth: '800px' }}>
-          <motion.div initial="initial" animate="animate" variants={fadeInUp}>
-            <span className="section-eyebrow">Connect With Us</span>
+        <div className="container-wide">
+          <motion.div initial="initial" animate="animate" variants={fadeInUp} style={{ maxWidth: '860px' }}>
+            <span style={{ fontSize: '0.8125rem', color: 'var(--gold)', letterSpacing: '0.16em', textTransform: 'uppercase', display: 'block', marginBottom: '20px' }}>
+              Connect With Us &bull; Direct Care Coordination
+            </span>
             <h1 
               style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 'clamp(2.4rem, 4vw, 3.4rem)',
-                fontWeight: 600,
-                color: '#1E281D',
-                lineHeight: 1.2,
-                marginBottom: '16px',
+                fontSize: 'clamp(2.6rem, 5vw, 4.4rem)',
+                fontWeight: 300,
+                color: 'var(--text-primary)',
+                lineHeight: 1.15,
+                letterSpacing: '-0.025em',
+                marginBottom: '24px',
               }}
             >
-              We Are Always <em>Here for Your Family</em>
+              We are always here for your family.
             </h1>
             <p 
               style={{
-                fontSize: '1.125rem',
-                color: '#4A5647',
+                fontSize: '1.2rem',
+                color: 'var(--text-muted)',
                 lineHeight: 1.8,
               }}
             >
-              Reach out directly to Niveda and our care coordination team. Whether you have a quick question or wish to plan an introductory visit, we respond promptly.
+              Reach out directly to founder Niveda Babu and our central Kerala care team. Whether you have a simple question or wish to plan an introductory visit, we respond promptly.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Main Contact Grid */}
-      <section style={{ padding: '80px 0', backgroundColor: '#FFFFFF' }}>
-        <div className="container">
-          <div 
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '48px',
-            }}
-          >
-            {/* Left: Contact Channels */}
+      {/* MAIN CONTACT GRID */}
+      <section style={{ padding: '120px 0', backgroundColor: 'var(--bg-surface)' }}>
+        <div className="container-wide">
+          <div className="contact-grid">
+            
+            {/* Left: Direct Channels */}
             <div>
-              <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.2rem', color: '#1E281D', marginBottom: '24px' }}>
+              <span style={{ fontSize: '0.8125rem', color: 'var(--gold)', letterSpacing: '0.14em', textTransform: 'uppercase', display: 'block', marginBottom: '14px' }}>
                 Direct Channels
+              </span>
+              <h2 style={{ fontSize: 'clamp(2rem, 3.2vw, 2.6rem)', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '32px', lineHeight: 1.25, letterSpacing: '-0.02em' }}>
+                Immediate assistance for families abroad
               </h2>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '40px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '36px' }}>
+                {/* WhatsApp */}
                 <a 
                   href="https://wa.me/919565533735" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '20px',
-                    borderRadius: '14px',
-                    backgroundColor: '#FAF8F5',
-                    border: '1px solid rgba(52, 68, 47, 0.1)',
-                    textDecoration: 'none',
-                    color: '#1E281D',
-                  }}
+                  className="channel-card"
                 >
                   <div 
+                    className="channel-icon"
                     style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '12px',
-                      backgroundColor: 'rgba(37, 211, 102, 0.15)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      backgroundColor: 'rgba(37, 211, 102, 0.12)',
                       color: '#25D366',
                     }}
                   >
                     <MessageCircle size={24} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '0.8125rem', color: '#8A5F45', fontWeight: 600, textTransform: 'uppercase' }}>
-                      Primary &amp; Fastest Response
+                    <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '4px' }}>
+                      Primary &bull; Fastest Response
                     </div>
-                    <div style={{ fontSize: '1.125rem', fontWeight: 700 }}>+91 95655 33735</div>
-                    <div style={{ fontSize: '0.875rem', color: '#4A5647' }}>WhatsApp &amp; Direct Calls</div>
+                    <div style={{ fontSize: '1.2rem', fontWeight: 400, color: 'var(--text-primary)' }}>+91 95655 33735</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>WhatsApp Direct Care Line</div>
                   </div>
                 </a>
 
+                {/* Email */}
                 <a 
                   href="mailto:hello@arikilcompanionship.com"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '20px',
-                    borderRadius: '14px',
-                    backgroundColor: '#FAF8F5',
-                    border: '1px solid rgba(52, 68, 47, 0.1)',
-                    textDecoration: 'none',
-                    color: '#1E281D',
-                  }}
+                  className="channel-card"
                 >
                   <div 
+                    className="channel-icon"
                     style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '12px',
-                      backgroundColor: 'rgba(197, 154, 88, 0.15)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#C59A58',
+                      backgroundColor: 'rgba(168, 132, 92, 0.15)',
+                      color: 'var(--gold)',
                     }}
                   >
-                    <Mail size={24} />
+                    <Mail size={22} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '0.8125rem', color: '#8A5F45', fontWeight: 600, textTransform: 'uppercase' }}>
-                      Official Inquiries
+                    <div style={{ fontSize: '0.75rem', color: 'var(--gold)', fontWeight: 500, textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '4px' }}>
+                      Official Correspondence
                     </div>
-                    <div style={{ fontSize: '1.0625rem', fontWeight: 700 }}>hello@arikilcompanionship.com</div>
-                    <div style={{ fontSize: '0.875rem', color: '#4A5647' }}>Detailed family requests &amp; partnerships</div>
-                  </div>
-                </a>
-
-                <a 
-                  href="https://instagram.com/arikil.official" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '16px',
-                    padding: '20px',
-                    borderRadius: '14px',
-                    backgroundColor: '#FAF8F5',
-                    border: '1px solid rgba(52, 68, 47, 0.1)',
-                    textDecoration: 'none',
-                    color: '#1E281D',
-                  }}
-                >
-                  <div 
-                    style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '12px',
-                      backgroundColor: 'rgba(225, 48, 108, 0.15)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: '#E1306C',
-                    }}
-                  >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: '0.8125rem', color: '#8A5F45', fontWeight: 600, textTransform: 'uppercase' }}>
-                      Social Community
-                    </div>
-                    <div style={{ fontSize: '1.0625rem', fontWeight: 700 }}>@arikil.official</div>
-                    <div style={{ fontSize: '0.875rem', color: '#4A5647' }}>Updates, stories &amp; reflections</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 400, color: 'var(--text-primary)' }}>hello@arikilcompanionship.com</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>Detailed family inquiries &amp; scheduling</div>
                   </div>
                 </a>
               </div>
 
+              {/* Privacy Reassurance */}
               <div 
                 style={{
-                  padding: '20px',
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(52, 68, 47, 0.06)',
-                  border: '1px solid rgba(52, 68, 47, 0.1)',
+                  padding: '24px 28px',
+                  borderRadius: '8px',
+                  backgroundColor: 'var(--bg-raised)',
+                  border: '1px solid var(--border)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '12px',
+                  gap: '16px',
                   fontSize: '0.9375rem',
-                  color: '#1E281D',
+                  color: 'var(--text-muted)',
+                  lineHeight: 1.6,
                 }}
               >
-                <ShieldCheck size={24} color="#C59A58" />
-                <span>We respect your family&apos;s privacy. No spam, no third-party sharing.</span>
+                <ShieldCheck size={26} color="var(--gold)" style={{ flexShrink: 0 }} />
+                <span>We respect your family&apos;s complete privacy. No commercial spam, no third-party data sharing.</span>
               </div>
             </div>
 
-            {/* Right: Consultation Form */}
-            <div 
-              style={{
-                padding: '36px',
-                borderRadius: '20px',
-                backgroundColor: '#FAF8F5',
-                border: '1px solid rgba(52, 68, 47, 0.12)',
-                boxShadow: '0 12px 36px rgba(0, 0, 0, 0.05)',
-              }}
-            >
+            {/* Right: Direct Concierge Form */}
+            <div className="contact-card">
               {!submitted ? (
                 <>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: '#1E281D', marginBottom: '8px' }}>
+                  <span style={{ fontFamily: 'var(--font-script)', fontSize: '1.9rem', color: 'var(--gold)', display: 'block', marginBottom: '6px' }}>
+                    Care consultation
+                  </span>
+                  <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '10px', letterSpacing: '-0.02em' }}>
                     Send a Direct Note
                   </h3>
-                  <p style={{ color: '#4A5647', fontSize: '0.9375rem', lineHeight: 1.6, marginBottom: '24px' }}>
-                    Fill out the brief details below to instantly connect with our care team on WhatsApp.
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.96875rem', lineHeight: 1.65, marginBottom: '28px' }}>
+                    Fill out the brief details below to instantly connect with founder Niveda on WhatsApp.
                   </p>
 
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                        Your Name
-                      </label>
-                      <input 
-                        type="text" 
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. Anjali Menon"
-                        style={{
-                          width: '100%',
-                          padding: '12px 16px',
-                          borderRadius: '8px',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
-                          backgroundColor: '#FFFFFF',
-                          fontSize: '1rem',
-                          outline: 'none',
-                        }}
-                      />
-                    </div>
-
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                          Phone / WhatsApp
+                        <label className="contact-label">
+                          Your Name
                         </label>
                         <input 
-                          type="tel" 
+                          type="text" 
                           required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+971 / +91..."
-                          style={{
-                            width: '100%',
-                            padding: '12px 14px',
-                            borderRadius: '8px',
-                            border: '1px solid rgba(0, 0, 0, 0.15)',
-                            backgroundColor: '#FFFFFF',
-                            fontSize: '0.9375rem',
-                            outline: 'none',
-                          }}
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          placeholder="e.g. Rahul Menon"
+                          className="contact-input"
                         />
                       </div>
-
                       <div>
-                        <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                          District Hub
+                        <label className="contact-label">
+                          Parents&apos; Name
+                        </label>
+                        <input 
+                          type="text" 
+                          required
+                          value={formData.parentName}
+                          onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
+                          placeholder="e.g. Radhakrishnan &amp; Geetha"
+                          className="contact-input"
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+                      <div>
+                        <label className="contact-label">
+                          Parents&apos; District
                         </label>
                         <select 
                           value={formData.district}
                           onChange={(e) => setFormData({ ...formData, district: e.target.value })}
-                          style={{
-                            width: '100%',
-                            padding: '12px 14px',
-                            borderRadius: '8px',
-                            border: '1px solid rgba(0, 0, 0, 0.15)',
-                            backgroundColor: '#FFFFFF',
-                            fontSize: '0.9375rem',
-                            outline: 'none',
-                          }}
+                          className="contact-input"
+                          style={{ cursor: 'pointer' }}
                         >
-                          <option value="Palakkad">Palakkad District</option>
-                          <option value="Thrissur">Thrissur District</option>
-                          <option value="Other Kerala Region">Other Kerala Region</option>
+                          <option value="Palakkad" style={{ backgroundColor: '#111512', color: '#F0EDE6' }}>Palakkad District</option>
+                          <option value="Thrissur" style={{ backgroundColor: '#111512', color: '#F0EDE6' }}>Thrissur District</option>
+                          <option value="Other Kerala Area" style={{ backgroundColor: '#111512', color: '#F0EDE6' }}>Other Area in Kerala</option>
                         </select>
+                      </div>
+
+                      <div>
+                        <label className="contact-label">
+                          Where You Live
+                        </label>
+                        <input 
+                          type="text" 
+                          value={formData.currentLocation}
+                          onChange={(e) => setFormData({ ...formData, currentLocation: e.target.value })}
+                          placeholder="e.g. Dubai, London, Dallas"
+                          className="contact-input"
+                        />
                       </div>
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                        Parents&apos; Name(s) in Kerala
+                      <label className="contact-label">
+                        Your WhatsApp Number
                       </label>
                       <input 
-                        type="text" 
+                        type="tel" 
                         required
-                        value={formData.parentName}
-                        onChange={(e) => setFormData({ ...formData, parentName: e.target.value })}
-                        placeholder="e.g. K. Narayanan &amp; Sarada"
-                        style={{
-                          width: '100%',
-                          padding: '12px 16px',
-                          borderRadius: '8px',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
-                          backgroundColor: '#FFFFFF',
-                          fontSize: '1rem',
-                          outline: 'none',
-                        }}
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+971 50 123 4567 or +91 98..."
+                        className="contact-input"
                       />
                     </div>
 
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: 600, color: '#1E281D', marginBottom: '6px' }}>
-                        How Can We Support Your Parents? (Optional)
+                      <label className="contact-label">
+                        Routines or Specific Preferences
                       </label>
                       <textarea 
                         rows={3}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Share any details on preferred visit times, conversation interests, or companionship routine..."
-                        style={{
-                          width: '100%',
-                          padding: '12px 16px',
-                          borderRadius: '8px',
-                          border: '1px solid rgba(0, 0, 0, 0.15)',
-                          backgroundColor: '#FFFFFF',
-                          fontSize: '0.9375rem',
-                          outline: 'none',
-                          resize: 'none',
-                        }}
+                        placeholder="e.g. Achan likes morning tea conversations and reading newspapers; Amma enjoys gentle garden strolls."
+                        className="contact-input"
+                        style={{ resize: 'vertical' }}
                       />
                     </div>
 
                     <button 
                       type="submit"
-                      className="btn-primary"
-                      style={{ padding: '14px', fontSize: '1rem', justifyContent: 'center', marginTop: '8px' }}
+                      className="btn-harvest-solid"
+                      style={{ width: '100%', justifyContent: 'center', padding: '16px 24px', marginTop: '6px' }}
                     >
-                      <Send size={18} />
-                      <span>Send to WhatsApp (+91 95655 33735)</span>
+                      <span>Connect with Care Desk on WhatsApp</span>
+                      <ArrowRight size={18} />
                     </button>
                   </form>
                 </>
               ) : (
-                <div style={{ textAlign: 'center', padding: '36px 12px' }}>
+                <div style={{ textAlign: 'center', padding: '32px 0' }}>
                   <div 
                     style={{
                       width: '64px',
                       height: '64px',
                       borderRadius: '50%',
                       backgroundColor: 'rgba(37, 211, 102, 0.15)',
+                      color: '#25D366',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: '#25D366',
-                      margin: '0 auto 16px auto',
+                      margin: '0 auto 20px auto',
                     }}
                   >
                     <CheckCircle2 size={36} />
                   </div>
-                  <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: '#1E281D', marginBottom: '10px' }}>
-                    Message Prepared
+                  <h3 style={{ fontSize: '2rem', fontWeight: 300, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                    WhatsApp Opened
                   </h3>
-                  <p style={{ color: '#4A5647', fontSize: '1rem', lineHeight: 1.6, marginBottom: '24px' }}>
-                    Your message has been formatted for WhatsApp. We will be in touch shortly to assist your family.
+                  <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '24px' }}>
+                    Your message has been formatted and opened in WhatsApp. Founder Niveda or our coordinator will reply promptly.
                   </p>
                   <button 
                     onClick={() => setSubmitted(false)}
-                    className="btn btn-outline"
-                    style={{ padding: '12px 24px', borderRadius: '8px', border: '1px solid #1E281D', backgroundColor: '#FFFFFF' }}
+                    className="btn-harvest-outline"
                   >
-                    Send Another Message
+                    <span>Send Another Note</span>
                   </button>
                 </div>
               )}
